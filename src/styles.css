@@ -1,0 +1,15 @@
+/* You can add global styles to this file, and also import other style files */
+.custom-card {
+    width: 350px;
+    max-width: 100%;
+    background-color: #eee!important;
+}
+
+.form-card {
+    width: 800px;
+}
+
+.user-icon {
+    font-size:50px;
+    color: rgb(80,195,195);
+}
