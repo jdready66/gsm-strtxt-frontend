@@ -9,7 +9,13 @@
     width: 800px;
 }
 
-.user-icon {
-    font-size:50px;
+.site-blue {
     color: rgb(80,195,195);
+}
+
+.btn-primary,
+.btn-primary:hover,
+.btn-primary:active,
+.btn-primary:visited {
+    background-color: rgb(80, 195, 195) !important;
 }

@@ -1,60 +1,71 @@
 <div class="container mt-5">
   <div class="card ms-auto me-auto p-3 shadow-lg custom-card">
-    <fa-icon [icon]="faUser" class="ms-auto me-auto user-icon" size="2x"></fa-icon>
+    <fa-icon [icon]="faUser" class="ms-auto me-auto site-blue mb-4" size="2x"></fa-icon>
 
-    <form #f="ngForm" (ngSubmit)="f.form.valid && register()">
-
+    <form [formGroup]="registerForm" (ngSubmit)="register()">
       <div class="alert alert-danger" *ngIf="errorMessage">
         {{errorMessage}}
       </div>
 
       <div class="form-group">
-        <label for="name">Full Name</label>
-        <input type="text" class="form-control" id="name" name="name" [(ngModel)]="user.name" #name="ngModel" required>
-        <div class="alert alert-danger" *ngIf="!name.valid && (f.submitted || name.dirty)">
-          Full name is required
-        </div>
+        <label>Name</label>
+        <input type="text" name="name" id="name" class="form-control" formControlName="name">
+        <span class="text-danger">
+          <ng-container *ngIf="f['name']?.invalid && f['name']?.touched">
+            Name is required
+          </ng-container>
+          &nbsp;
+        </span>
       </div>
 
       <div class="form-group">
-        <label for="username">Username</label>
-        <input type="text" class="form-control" id="username" name="username" [(ngModel)]="user.username"
-          #username="ngModel" required>
-        <div class="alert alert-danger" *ngIf="!username.valid && (f.submitted || username.dirty)">
-          Username is required
-        </div>
+        <label>Username</label>
+        <input type="text" name="username" id="username" class="form-control" formControlName="username"
+          autocomplete="username">
+        <span class="text-danger">
+          <ng-container *ngIf="f['username'] && f['username'].errors && f['username'].touched">
+            <ng-container *ngIf="f['username'].errors['required']">
+              Username is required
+            </ng-container>
+            <ng-container *ngIf="f['username'].errors['serverError']">
+              {{f['username'].errors['serverError']}}
+            </ng-container>
+          </ng-container>
+        </span>
+        &nbsp;
       </div>
 
       <div class="form-group">
-        <label for="password">Password</label>
-        <input type="password" class="form-control" id="password" name="password" [(ngModel)]="user.password"
-          #password="ngModel" required>
-        <div class="alert alert-danger" *ngIf="!password.valid && (f.submitted || password.dirty)">
-          Password is required
-        </div>
+        <label>Password</label>
+        <input type="password" name="password" id="password" formControlName="password" class="form-control"
+          autocomplete="new-password">
+        <span class="text-danger">
+          <ng-container *ngIf="f['password']?.invalid && f['password']?.touched">
+            Password is required
+          </ng-container>
+          &nbsp;
+        </span>
       </div>
 
       <div class="form-group">
-        <label for="confirm">Confirm Password</label>
-        <input type="password" class="form-control" id="confirm" name="confirm" [(ngModel)]="confirmPassword"
-          #confirm="ngModel" required mustMatchValidator="password">
-        <div class="alert alert-danger" *ngIf="confirm.hasError('required') && (f.submitted || confirm.dirty)">
-          Confirm Password is required
-        </div>
-        <div class="alert alert-danger" *ngIf="confirm.hasError('mustMatch') && (f.submitted || confirm.dirty)">
-          Confirm Password does not match Password
-        </div>
+        <label>Confirm Password</label>
+        <input type="password" name="confirm" id="confirm" formControlName="confirm" class="form-control"
+          autocomplete="new-password">
+        <span cleass="text-danger">
+          <ng-container *ngIf="f['confirm'] && f['confirm'].errors && f['confirm'].touched">
+            <ng-container *ngIf="f['confirm'].errors['required']">
+              Confirm Password is required
+            </ng-container>
+            <ng-container *ngIf="f['confirm'].errors['match']">
+              Passwords do not match
+            </ng-container>
+          </ng-container>
+          &nbsp;
+        </span>
       </div>
 
-      <button type="submit" class="btn btn-danger w-100 mt-3">
-        Sign Up
-      </button>
+      <button type="submit" class="btn btn-primary w-100 mt-3" [disabled]="registerForm.invalid">Register</button>
+
     </form>
-
-    <a [routerLink]="['/login']" class="btn btn-link" style="color: darkgray">
-      Already have an account?
-    </a>
-
-
   </div>
 </div>

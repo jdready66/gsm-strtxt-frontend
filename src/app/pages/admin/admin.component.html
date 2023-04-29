@@ -1,9 +1,12 @@
 <div class="container">
   <div class="pt-5">
+    <div *ngIf="message" class="mb-3 d-flex justify-content-sm-center text-info">{{message}}</div>
+    
     <div class="card">
       <div class="card-header d-flex justify-content-between align-items-center">
         <h3>All Users</h3>
-        <fa-icon [icon]="'user-plus'" class="user-icon" [styles]="{'cursor': 'pointer'}" (click)="newUser()"></fa-icon>
+        <fa-icon [icon]="'user-plus'" class="site-blue" size="3x"
+         [styles]="{'cursor': 'pointer'}" (click)="newUser()"></fa-icon>
       </div>
       <div class="card-body">
         <table class="table table-striped">
@@ -13,7 +16,8 @@
               <th scope="col">Name</th>
               <th scope="col">Username</th>
               <th scope="col">Role</th>
-              <th scope="col">Details</th>
+              <th scope="col"> &nbsp; </th>
+              <th scope="col"> &nbsp; </th>
             </tr>
           </thead>
           <tbody>
@@ -23,7 +27,12 @@
               <td>{{item.username}}</td>
               <td>{{item.role}}</td>
               <td>
-                <button class="btn btn-info" (click)="detail(item)">Details</button>
+                <fa-icon [icon]="['fas', 'pencil']" class="site-blue" [styles]="{'cursor': 'pointer'}"
+                    (click)="detail(item)" title="Edit User"></fa-icon>
+              </td>
+              <td>
+                <fa-icon [icon]="['fas', 'lock']" class="site-blue" [styles]="{'cursor': 'pointer'}" 
+                (click)="openPasswordModal(item)" title="Change Password"></fa-icon>
               </td>
             </tr>
           </tbody>

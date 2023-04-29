@@ -1,0 +1,60 @@
+<div class="container mt-5">
+  <div class="card ms-auto me-auto p-3 shadow-lg custom-card">
+    <fa-icon [icon]="faUser" class="ms-auto me-auto user-icon" size="2x"></fa-icon>
+
+    <form #f="ngForm" (ngSubmit)="f.form.valid && register()">
+
+      <div class="alert alert-danger" *ngIf="errorMessage">
+        {{errorMessage}}
+      </div>
+
+      <div class="form-group">
+        <label for="name">Full Name</label>
+        <input type="text" class="form-control" id="name" name="name" [(ngModel)]="user.name" #name="ngModel" required>
+        <div class="alert alert-danger" *ngIf="!name.valid && (f.submitted || name.dirty)">
+          Full name is required
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="username">Username</label>
+        <input type="text" class="form-control" id="username" name="username" [(ngModel)]="user.username"
+          #username="ngModel" required>
+        <div class="alert alert-danger" *ngIf="!username.valid && (f.submitted || username.dirty)">
+          Username is required
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" class="form-control" id="password" name="password" [(ngModel)]="user.password"
+          #password="ngModel" required>
+        <div class="alert alert-danger" *ngIf="!password.valid && (f.submitted || password.dirty)">
+          Password is required
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="confirm">Confirm Password</label>
+        <input type="password" class="form-control" id="confirm" name="confirm" [(ngModel)]="confirmPassword"
+          #confirm="ngModel" required mustMatchValidator="password">
+        <div class="alert alert-danger" *ngIf="confirm.hasError('required') && (f.submitted || confirm.dirty)">
+          Confirm Password is required
+        </div>
+        <div class="alert alert-danger" *ngIf="confirm.hasError('match') && (f.submitted || confirm.dirty)">
+          Confirm Password does not match Password
+        </div>
+      </div>
+
+      <button type="submit" class="btn btn-danger w-100 mt-3">
+        Sign Up
+      </button>
+    </form>
+
+    <a [routerLink]="['/login']" class="btn btn-link" style="color: darkgray">
+      Already have an account?
+    </a>
+
+
+  </div>
+</div>

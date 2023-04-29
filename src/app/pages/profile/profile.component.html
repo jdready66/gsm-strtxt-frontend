@@ -1,22 +1,33 @@
 <div class="container">
   <div class="pt-5">
 
-    <div class="alert alert-danger" *ngIf="errorMessage">{{errorMessage}}</div>
+    <div class="alert alert-info" *ngIf="message">{{message}}</div>
 
     <div class="card">
       <div class="card-header">
         <div class="row">
           <div class="col-6">
-            <h3>User Details</h3>
+            <h3>User Profile</h3>
           </div>
           <div class="col-6 text-end">
-            Current role is <strong>{{currentUser.role}} </strong>
-            <button class="btn btn-primary" (click)="changeRole()">Change Role</button></div>
+            <span>Role: <strong>{{currentUser.role}} </strong></span>&nbsp;
+            <fa-icon [icon]="['fas', 'pencil']" class="site-blue" [styles]="{'cursor': 'pointer'}" title="Edit User"
+              (click)="navigateToDetail()">
+            </fa-icon>&nbsp;
+            <fa-icon [icon]="['fas', 'lock']" class="site-blue" [styles]="{'cursor': 'pointer'}"
+              title="Change Password" (click)="openPasswordModal(currentUser)     "></fa-icon>
+          </div>
         </div>
       </div>
       <div class="card-body">
-        <p><strong>Name:</strong> {{currentUser.name}}</p>
-        <p><strong>Username:</strong> {{currentUser.username}}</p>
+        <ng-container *ngIf="mode=='view'">
+          <p><strong>Name:</strong> {{currentUser.name}}</p>
+          <p><strong>Username:</strong> {{currentUser.username}}</p>
+        </ng-container>
+
+        <ng-container *ngIf="mode=='edit'">
+          <button class="btn btn-secondary" (click)="cancelEdit()">Cancel</button>
+        </ng-container>
       </div>
     </div>
 

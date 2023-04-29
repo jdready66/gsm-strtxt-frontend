@@ -1,0 +1,28 @@
+<br><br>
+<div *ngIf="user.id==0" class="text-center">
+  <form [formGroup]="pinForm" (ngSubmit)="onSubmitPinForm()">
+    <input type="password" id="pin" maxlength="4" formControlName="pin" style="font-size:48px" size="3">
+    <br>
+    <button type="submit" class="btn btn-primary mt-3">Login</button>
+    <br>
+    <br>
+    <span class="text-danger">
+      <span *ngIf="errorMessage">{{errorMessage}}</span>
+       &nbsp; 
+    </span>
+  </form>
+</div>
+
+<div *ngIf="user.id > 0" class="text-center">
+  User: {{user.name}} <button type="button" class="btn btn-secondary me-3" (click)="logout()">Logout</button>
+  <br><br>
+  <form [formGroup]="ticketForm" (ngSubmit)="onSubmitTicketForm()">
+    Ticket #<br>
+    <input type="text" id="ticket" formControlName="ticket" style="font-size:48px">
+    <br>
+
+    <div class="mt-3">
+      <button type="submit" class="btn btn-primary">Lookup Ticket</button>
+    </div>
+  </form>
+</div>

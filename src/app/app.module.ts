@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from  '@angular/common/http';
-import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { FontAwesomeModule, FaIconLibrary } from '@fortawesome/angular-fontawesome';
 
@@ -15,8 +15,11 @@ import { DetailComponent } from './pages/detail/detail.component';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { UnauthorizedComponent } from './pages/unauthorized/unauthorized.component';
 import { authInterceptorProviders } from './interceptors/auth.interceptor';
-import { faUserCircle, faUserPlus } from '@fortawesome/free-solid-svg-icons';
+import { faLock, faPencil, faUserCircle, faUserPlus, faXmark } from '@fortawesome/free-solid-svg-icons';
 import { MustMatchValidatorDirective } from './directives/must-match-validator.directive';
+import { PasswordModalComponent } from './pages/password-modal/password-modal.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NotifyCustomerComponent } from './pages/notify-customer/notify-customer.component';
 
 @NgModule({
   declarations: [
@@ -29,19 +32,23 @@ import { MustMatchValidatorDirective } from './directives/must-match-validator.d
     NotFoundComponent,
     UnauthorizedComponent,
     MustMatchValidatorDirective,
+    PasswordModalComponent,
+    NotifyCustomerComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FontAwesomeModule,
     HttpClientModule,
-    FormsModule
+    ReactiveFormsModule,
+    NgbModule
   ],
   providers: [authInterceptorProviders],
   bootstrap: [AppComponent],
+  entryComponents: [PasswordModalComponent]
 })
 export class AppModule {
   constructor(library: FaIconLibrary) {
-    library.addIcons(faUserCircle, faUserPlus);
+    library.addIcons(faUserCircle, faUserPlus, faPencil, faLock, faXmark);
   }
 }

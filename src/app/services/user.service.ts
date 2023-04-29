@@ -2,26 +2,33 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { User } from '../models/user.model';
 import { AuthenticationService } from './authentication.service';
 import { RequestBaseService } from './request-base.service';
 
 const API_URL = environment.BASE_URL + '/api/user';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class UserService extends RequestBaseService {
-
-  constructor(authenticationService: AuthenticationService, http: HttpClient) { 
+  constructor(authenticationService: AuthenticationService, http: HttpClient) {
     super(authenticationService, http);
   }
 
   changeRole(newRole: string): Observable<any> {
-    return this.http.put(API_URL + '/change/' + newRole, {}, {headers: this.getHeaders});
+    return this.http.put(
+      API_URL + '/change/' + newRole,
+      {},
+      { headers: this.getHeaders }
+    );
   }
 
   getUserById(id: number): Observable<any> {
-    return this.http.get(API_URL + '/' + id, {headers: this.getHeaders});
+    return this.http.get(API_URL + '/' + id, { headers: this.getHeaders });
   }
 
+  getUserByPin(pin: string): Observable<any> {
+    return this.http.get(API_URL + '/pin/' + pin, {headers: this.getHeaders});
+  }
 }

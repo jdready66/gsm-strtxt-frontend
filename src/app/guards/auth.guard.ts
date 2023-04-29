@@ -34,6 +34,13 @@ export class AuthGuard implements CanActivate {
     | Promise<boolean | UrlTree>
     | boolean
     | UrlTree {
+
+    if (route.data['self']) {
+      if (route.params['id'] && this.currentUser && parseInt(route.params['id']) === this.currentUser.id) {
+        return true;
+      }
+    }
+
     if (this.currentUser) {
       if (route.data['roles']?.indexOf(this.currentUser.role) === -1) {
         this.router.navigate(['/401']);
